@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Просмотр профиля</title>
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <style>
+        .profile-container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .profile-field {
+            margin-bottom: 20px;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .field-label {
+            font-weight: 600;
+            color: #4a76a8;
+            margin-bottom: 5px;
+        }
+        .field-value {
+            font-size: 16px;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                <div class="profile-container" id="profileContainer">
+                    <div class="login100-form-title p-b-49">
+                        Профиль пользователя
+                    </div>
+                    <div id="profileContent">
+                        <!-- Данные будут загружены здесь -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Функция для преобразования ключей в читаемые названия
+        const fieldNames = {
+            firstName: 'Имя',
+            lastName: 'Фамилия',
+            middleName: 'Отчество',
+            email: 'Email',
+            phone: 'Телефон',
+            company: 'Компания',
+            address: 'Адрес',
+            instagram: 'Instagram',
+            facebook: 'Facebook',
+            createdAt: 'Дата регистрации'
+        };
+
+        // Загрузка профиля
+        async function loadProfile() {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const publicUrl = urlParams.get('id');
+
+                if (!publicUrl) throw new Error('Профиль не найден');
+
+                const response = await fetch(`/.netlify/functions/get-profile?id=${publicUrl}`);
+                const data = await response.json();
+
+                if (!response.ok) throw new Error(data.error || 'Ошибка загрузки');
+                
+                renderProfile(data.profile);
+                
+            } catch (error) {
+                showError(error.message);
+            }
+        }
+
+        // Отображение данных
+        function renderProfile(profile) {
+            const container = document.getElementById('profileContent');
+            let html = '';
+
+            for (const [key, value] of Object.entries(profile)) {
+                if (value && fieldNames[key]) {
+                    html += `
+                        <div class="profile-field">
+                            <div class="field-label">${fieldNames[key]}</div>
+                            <div class="field-value">${value}</div>
+                        </div>
+                    `;
+                }
+            }
+
+            container.innerHTML = html || '<p>Нет данных для отображения</p>';
+        }
+
+        // Обработка ошибок
+        function showError(message) {
+            document.getElementById('profileContent').innerHTML = `
+                <div class="text-center" style="color: #ff4444;">
+                    <h3>Ошибка!</h3>
+                    <p>${message}</p>
+                    <a href="index.html" class="txt2">Вернуться на главную</a>
+                </div>
+            `;
+        }
+
+        // Инициализация
+        document.addEventListener('DOMContentLoaded', loadProfile);
+    </script>
+</body>
+</html>
