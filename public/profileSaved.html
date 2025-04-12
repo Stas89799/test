@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Профиль сохранен</title>
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <style>
+        .alert {
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        .alert-success {
+            background: #d4edda;
+            color: #155724;
+        }
+        .alert-error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+    </style>
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                <span class="login100-form-title p-b-49">
+                    Профиль сохранен
+                </span>
+
+                <div id="alertBox" class="alert"></div>
+
+                <div class="wrap-input100 validate-input m-b-23">
+                    <span class="label-input100">Ссылка для просмотра:</span>
+                    <input class="input100" type="text" id="profileLink" readonly>
+                    <button class="login100-form-btn m-t-10" onclick="copyLink()">
+                        Копировать ссылку
+                    </button>
+                    <a href="profile.html" class="txt2" style="display: block; text-align: center; margin-top: 20px;">
+                        Вернуться в профиль
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showAlert(message, type = 'success') {
+            const alertBox = document.getElementById('alertBox');
+            alertBox.textContent = message;
+            alertBox.className = `alert alert-${type}`;
+            alertBox.style.display = 'block';
+            setTimeout(() => alertBox.style.display = 'none', 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const link = urlParams.get('link');
+            
+            if (!link) {
+                window.location.href = 'profile.html';
+                return;
+            }
+
+            try {
+                const decodedLink = decodeURIComponent(link)
+                    .replace(/</g, "&lt;")
+                    .replace(/>/g, "&gt;");
+                document.getElementById('profileLink').value = decodedLink;
+            } catch (e) {
+                console.error('Ошибка обработки ссылки:', e);
+                showAlert('Ошибка загрузки ссылки', 'error');
+            }
+        });
+
+        async function copyLink() {
+            const linkInput = document.getElementById("profileLink");
+            
+            try {
+                await navigator.clipboard.writeText(linkInput.value);
+                showAlert("Ссылка скопирована в буфер обмена!");
+            } catch (err) {
+                linkInput.select();
+                try {
+                    document.execCommand("copy");
+                    showAlert("Ссылка скопирована!");
+                } catch (e) {
+                    showAlert("Не удалось скопировать ссылку", "error");
+                    console.error('Ошибка копирования:', e);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+    <link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+    <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/animsition/css/animsition.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+    <link rel="stylesheet" type="text/css" href="vendor/daterangepicker/daterangepicker.css">
+    <link rel="stylesheet" type="text/css" href="css/util.css">
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+        }
+        .logout-button {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background-color: #ff4757;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+        .logout-button:hover {
+            background-color: #ff6b81;
+        }
+        .container-login100 {
+            position: relative;
+        }
+    </style>
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100" style="background-image: url('images/bg-01.jpg');">
+            <button class="logout-button" id="logoutButton">Выйти</button>
+            <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
+                <form class="login100-form validate-form" id="profileForm">
+                    <input type="hidden" name="_csrf" value="ваш_csrf_токен"> <!-- Добавьте реальный токен -->
+                    <span class="login100-form-title p-b-49">
+                        Профиль пользователя
+                    </span>
+
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <span class="label-input100">Аватар</span>
+                        <input class="input100" type="file" name="avatar" accept="image/*">
+                        <span class="focus-input100" data-symbol="&#xf03e;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <span class="label-input100">Телефон</span>
+                        <input class="input100" type="tel" name="phone" placeholder="Введите ваш телефон" pattern="[0-9]{10,15}">
+                        <span class="focus-input100" data-symbol="&#xf2b6;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <span class="label-input100">Имя</span>
+                        <input class="input100" type="text" name="firstName" placeholder="Введите ваше имя" required>
+                        <span class="focus-input100" data-symbol="&#xf207;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <span class="label-input100">Фамилия</span>
+                        <input class="input100" type="text" name="lastName" placeholder="Введите вашу фамилию" required>
+                        <span class="focus-input100" data-symbol="&#xf207;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <span class="label-input100">Отчество</span>
+                        <input class="input100" type="text" name="middleName" placeholder="Введите ваше отчество">
+                        <span class="focus-input100" data-symbol="&#xf207;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <span class="label-input100">Email</span>
+                        <input class="input100" type="email" name="email" placeholder="Введите ваш email" required>
+                        <span class="focus-input100" data-symbol="&#xf15a;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <span class="label-input100">Instagram</span>
+                        <input class="input100" type="text" name="instagram" placeholder="Введите ваш Instagram">
+                        <span class="focus-input100" data-symbol="&#xf16d;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <span class="label-input100">Facebook</span>
+                        <input class="input100" type="text" name="facebook" placeholder="Введите ваш Facebook">
+                        <span class="focus-input100" data-symbol="&#xf09a;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <span class="label-input100">Адрес</span>
+                        <input class="input100" type="text" name="address" placeholder="Введите ваш адрес">
+                        <span class="focus-input100" data-symbol="&#xf015;"></span>
+                    </div>
+
+                    <div class="wrap-input100 validate-input m-b-23">
+                        <span class="label-input100">Название компании</span>
+                        <input class="input100" type="text" name="company" placeholder="Введите название вашей компании">
+                        <span class="focus-input100" data-symbol="&#xf1ad;"></span>
+                    </div>
+
+                    <div class="container-login100-form-btn">
+                        <div class="wrap-login100-form-btn">
+                            <div class="login100-form-bgbtn"></div>
+                            <button class="login100-form-btn" type="submit">
+                                Сохранить
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const profileForm = document.getElementById('profileForm');
+            const logoutButton = document.getElementById('logoutButton');
+
+            if (profileForm) {
+                profileForm.addEventListener('submit', async function(event) {
+                    event.preventDefault();
+                    const formData = new FormData(this);
+
+                    try {
+                        const response = await fetch('/saveProfile', {
+                            method: 'POST',
+                            body: formData
+                        });
+
+                        if (!response.ok) {
+                            throw new Error('Ошибка сети или сервера');
+                        }
+
+                        const data = await response.json();
+
+                        if (data.success) {
+                            window.location.href = '/profileSaved.html?link=' + encodeURIComponent(data.link);
+                        } else {
+                            alert(data.message || 'Ошибка сохранения профиля!');
+                        }
+                    } catch (error) {
+                        console.error('Ошибка:', error);
+                        alert('Произошла ошибка: ' + error.message);
+                    }
+                });
+            }
+
+            if (logoutButton) {
+                logoutButton.addEventListener('click', function() {
+                    localStorage.removeItem('isLoggedIn');
+                    localStorage.removeItem('currentUser');
+                    window.location.href = 'index.html';
+                });
+            }
+        });
+    </script>
+</body>
+</html>
